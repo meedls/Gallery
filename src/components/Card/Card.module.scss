@@ -1,0 +1,132 @@
+@use "../../styles/variables" as *;
+
+.card{
+  width: 280px;
+  height: 185px;
+  position: relative;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+}
+.card:hover img {
+  transform: scale(1.1);
+}
+@media (min-width: 768px) {
+  .card {
+    width: 352px;
+    height: 220px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    width: 392px;
+    height: 260px;
+  }
+}
+.cardContent{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  border-left: 1px solid $accent-gold;
+}
+.overlay{
+  position: relative;
+  background: $primary-black;
+  width: 236px;
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  gap:4px;
+  padding: 12px 8px;
+}
+
+.default,
+.hover {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  position: absolute;
+  top: 12px;
+  left: 8px;
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.default {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hover {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+.card:hover .default {
+  transform: translateY(40px);
+  opacity: 0;
+}
+
+.card:hover .hover {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+.title{
+  font-family: $font-heading;
+  font-size:$font-h2;
+  font-weight: $font-medium;
+  color: $primary-light-gray;
+  text-transform: uppercase;
+  @media (min-width: 768px) {
+    font-family: $font-h1;
+}
+}
+.year{
+  font-family: $font-main;
+  font-size: $font-caption-8;
+  font-weight: $font-bold;
+  color:$accent-gold;
+  text-transform: uppercase;
+  @media (min-width: 768px) {
+    font-family: $font-caption-12;
+}
+}
+.cardBtn{
+  background: $accent-gold;
+  width: 24px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:none;
+  svg path{
+    fill:$primary-light-gray;
+  }
+  @media (min-width: 1440px) {
+    display: none;
+}
+}
+
+
+:global(body.light) .overlay {
+  background: $primary-white;
+  .title{
+    color: $primary-black;
+  }
+  .year{
+    color: $accent-red;
+  }
+}
+:global(body.light) .cardBtn {
+  background: $accent-red;
+}

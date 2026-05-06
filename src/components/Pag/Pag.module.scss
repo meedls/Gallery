@@ -1,0 +1,83 @@
+@use "../../styles/variables" as *;
+
+.pagination {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pages {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 29px;
+    height: 24px;
+
+    cursor: pointer;
+    color: $primary-light-gray;
+    border-radius: 4px;
+    transition: 0.2s;
+  }
+
+  span:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.prev,
+.next {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg path {
+    fill: $primary-light-gray;
+    transition: 0.2s;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.prev {
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.active {
+  background: $secondary-black;
+  border-radius: 4px;
+  color: white;
+}
+
+:global(body.light) {
+  .active {
+    background: $primary-light-gray;
+    color: $primary-dark-gray;
+  }
+
+  .next,
+  .prev {
+    svg path {
+      fill: $primary-dark-gray;
+    }
+  }
+
+  .pages span {
+    color: $primary-dark-gray;
+  }
+}

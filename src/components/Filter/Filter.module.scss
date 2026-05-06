@@ -1,0 +1,190 @@
+@use "../../styles/variables" as *;
+
+.filter {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: 280px;
+  height: 100vh;
+
+  background: $primary-black;
+
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.close {
+  align-self: flex-end;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  font-size: 20px;
+  color: $primary-light-gray;
+}
+
+
+.filterContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  font-family: $font-heading;
+  font-size: $font-h2;
+  color: $primary-light-gray;
+
+  text-transform: uppercase;
+  span{
+    font-family: $font-heading;
+    font-size: $font-h1;
+    font-weight: $font-medium;
+  }
+}
+
+/* select */
+.select {
+  width: 100%;
+  height: 36px;
+
+  background: $secondary-black;
+  border: none;
+  outline: none;
+
+  border-radius: 4px;
+  padding: 0 10px;
+
+  color: $primary-light-gray;
+  option{
+    font-family: $font-main;
+    font-size: $font-p-base;
+    font-weight: $font-light;
+  }
+}
+
+/* years */
+.years {
+  display: flex;
+  gap: 8px;
+
+  input {
+    flex: 1;
+
+    height: 33px;
+    width: 66px;
+    background: $secondary-black;
+
+    border: none;
+    outline: none;
+
+    border-radius: 4px;
+    padding: 0 10px;
+
+    color: $primary-light-gray;
+  }
+  input[type="number"] {
+  appearance: textfield;
+}
+}
+
+.filterBtns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterBtns button {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.filterBtns button:first-child {
+  color: $primary-light-gray;
+  text-decoration: underline;
+}
+
+.filterBtns button:last-child {
+  color: $primary-dark-gray;
+}
+
+@media (min-width: 768px) {
+  .filter {
+    width: 372px;
+    padding-left: 40px;
+    padding-right: 100px;
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .filter {
+    width: 492px;
+    padding-left: 40px;
+    padding-right: 100px;
+  }
+}
+
+
+:global(body.light) {
+  .filter {
+    background: $secondary-white;
+  }
+
+  .close {
+    color: $primary-dark-gray;
+  }
+
+  .header {
+    color: $primary-black;
+  }
+
+  .select {
+    background: $primary-white;
+    color: $primary-dark-gray;
+  }
+
+  .years input {
+    background: $primary-white;
+    color: $primary-dark-gray;
+  }
+
+  .filterBtns button:first-child {
+    color: $primary-black;
+  }
+
+  .filterBtns button:last-child {
+    color: $secondary-gray;
+  }
+}
+
+.open {
+  transform: translateX(0);
+}

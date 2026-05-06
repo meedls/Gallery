@@ -1,0 +1,89 @@
+@use "../../styles/variables" as *;
+
+
+.search{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items:flex-end;
+
+  gap:20px;
+}
+
+
+.searchInput {
+  flex:1;
+  max-width: 224px;
+  height: 33px;
+  background: $secondary-black;
+
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+
+  padding-left: 16px;
+  gap:12px;
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: $primary-white;
+    font-size: 14px;
+
+    &::placeholder {
+      color: $primary-dark-gray;
+    }
+  }
+  svg path{
+    fill: $primary-light-gray;
+  }
+}
+@media (min-width: 768px) {
+  .searchInput {
+    max-width: 296px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .searchInput {
+    max-width: 336px;
+  }
+}
+.settingIcon{
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: $secondary-black;
+  border: 0;
+  svg path{
+    fill: $primary-light-gray;
+  }
+}
+
+
+:global(body.light) .searchInput {
+  background: $secondary-white;
+  border: 1px solid $primary-light-gray;
+  input{
+    color: $secondary-gray;
+
+  }
+  svg path{
+    fill: $primary-dark-gray;
+  }
+  &::placeholder {
+    color: $secondary-gray;
+  }
+}
+:global(body.light) .settingIcon {
+  background: $secondary-white;
+  svg path{
+    fill: $primary-dark-gray;
+  }
+}

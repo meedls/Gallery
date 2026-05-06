@@ -1,0 +1,103 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Gallery API",
+    "version": "1.0.0",
+    "description": "API галереи картин с поиском и пагинацией"
+  },
+  "paths": {
+    "/paintings": {
+      "get": {
+        "summary": "Получить список картин",
+        "description": "Поддерживает поиск и пагинацию",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Количество на странице",
+            "schema": {
+              "type": "integer",
+              "example": 6
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Поиск",
+            "schema": {
+              "type": "string",
+              "example": "louvre"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список картин",
+            "content": {
+              "application/json": {
+                "example": {
+                  "page": 1,
+                  "totalPages": 7,
+                  "data": [
+                    {
+                      "id": "c1-1",
+                      "src": "/images/card1.jpg",
+                      "title": "cascate di tivoli",
+                      "year": "1767",
+                      "name": "jean honore fragonard",
+                      "museum": "louvre museum"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/paintings/{id}": {
+      "get": {
+        "summary": "Получить одну картину",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID картины",
+            "schema": {
+              "type": "string",
+              "example": "c1-1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Одна картина",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "c1-1",
+                  "src": "/images/card1.jpg",
+                  "title": "cascate di tivoli",
+                  "year": "1767",
+                  "name": "jean honore fragonard",
+                  "museum": "louvre museum"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
