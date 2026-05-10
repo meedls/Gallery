@@ -12,17 +12,31 @@ export default function MainPage() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetch("/data/paintings.json")
-      .then(res => res.json())
-      .then(data =>
-        setCards(
-          data.map((item, index) => ({
-            ...item,
-            id: index + 1
-          }))
-        )
-      );
+
+    fetch("https://registry.scalar.com/@mail-ufgwz/apis/gallery-api@latest")
+      .then((response) => response.json())
+      .then((api) => {
+
+        const paintings =
+          api.paths["/paintings"]
+            .get
+            .responses["200"]
+            .content["application/json"]
+            .example;
+
+        const preparedCards = paintings.map((item, index) => ({
+          ...item,
+          id: index + 1,
+        }));
+
+        setCards(preparedCards);
+      })
+      .catch((error) => {
+        console.error("Ошибка загрузки:", error);
+      });
+
   }, []);
+
 
   const filtered = cards.filter((card) =>
     (card.title + card.artist + card.location)

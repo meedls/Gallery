@@ -7,18 +7,6 @@ function App() {
 
   return (
     <>
-      <button
-        onClick={() => setShowDocs(!showDocs)}
-        style={{
-          position: "fixed",
-          top: 10,
-          right: 10,
-          zIndex: 9999
-        }}
-      >
-        {showDocs ? "Назад" : "Swagger"}
-      </button>
-
       {showDocs ? <SwaggerPage /> : <MainPage />}
     </>
   );
