@@ -10,12 +10,19 @@ export default function MainPage() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [cards, setCards] = useState([]);
+  const [allCards, setAllCards] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [years, setYears] = useState([]);
+  const [filters, setFilters] = useState({ artist: null, location: null, from: null, to: null });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://registry.scalar.com/@mail-ufgwz/apis/gallery-api@latest");
+        const api = await response.json();
 
-    fetch("https://registry.scalar.com/@mail-ufgwz/apis/gallery-api@latest")
-      .then((response) => response.json())
-      .then((api) => {
 
         const paintings =
           api.paths["/paintings"]
@@ -28,26 +35,41 @@ export default function MainPage() {
           ...item,
           id: index + 1,
         }));
-
         setCards(preparedCards);
-      })
-      .catch((error) => {
-        console.error("Ошибка загрузки:", error);
-      });
+        setAllCards(preparedCards);
 
+
+        const uniqueArtists = [...new Set(paintings.map((p) => p.artist))];
+        setArtists(uniqueArtists);
+
+
+        const uniqueLocations = [...new Set(paintings.map((p) => p.location))];
+        setLocations(uniqueLocations);
+
+
+        const allYears = paintings.map((p) => p.year);
+        const minYear = Math.min(...allYears);
+        const maxYear = Math.max(...allYears);
+        setYears([minYear, maxYear]);
+      } catch (error) {
+        console.error("Ошибка загрузки:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
 
-  const filtered = cards.filter((card) =>
+  const filteredBySearch = cards.filter((card) =>
     (card.title + card.artist + card.location)
       .toLowerCase()
       .includes(query.toLowerCase())
   );
 
   const perPage = 6;
-  const totalPages = Math.ceil(filtered.length / perPage);
+  const totalPages = Math.ceil(filteredBySearch.length / perPage);
 
-  const paginated = filtered.slice(
+  const paginated = filteredBySearch.slice(
     (page - 1) * perPage,
     page * perPage
   );
@@ -56,12 +78,47 @@ export default function MainPage() {
     <Container>
       <Header>111</Header>
 
-      <Search onChange={setQuery} />
+      <Search
+        onChange={setQuery}
+        onApply={(filters) => {
+          setLoading(true);
+          setTimeout(() => {
+            const filtered = allCards.filter((card) => {
+              if (filters.artist && card.artist !== filters.artist) {
+                return false;
+              }
+              if (filters.location && card.location !== filters.location) {
+                return false;
+              }
+              if (filters.from && card.year < filters.from) {
+                return false;
+              }
+              if (filters.to && card.year > filters.to) {
+                return false;
+              }
+              return true;
+            });
+            setCards(filtered);
+            setLoading(false);
+            setPage(1);
+          }, 100);
+        }}
+        onClear={() => {
+          setFilters({ artist: null, location: null, from: null, to: null });
+          setCards(allCards);
+          setPage(1);
+        }}
+        artists={artists}
+        locations={locations}
+        years={years}
+      />
 
       <div className={styles.content}>
-        {paginated.map((card) => (
-          <Card key={card.id} {...card} />
-        ))}
+        {loading ? (
+          <p>Загрузка...</p>
+        ) : (
+          paginated.map((card) => <Card key={card.id} {...card} />)
+        )}
       </div>
 
       <Pag page={page} total={totalPages} onChange={setPage} />

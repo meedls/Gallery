@@ -19,6 +19,15 @@
   z-index: 1000;
   transform: translateX(100%);
   transition: transform 0.3s ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  &.loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
 }
 
 .close {
@@ -66,7 +75,7 @@
   }
 }
 
-/* select */
+
 .select {
   width: 100%;
   height: 36px;
@@ -86,7 +95,7 @@
   }
 }
 
-/* years */
+
 .years {
   display: flex;
   gap: 8px;
@@ -183,8 +192,4 @@
   .filterBtns button:last-child {
     color: $secondary-gray;
   }
-}
-
-.open {
-  transform: translateX(0);
 }

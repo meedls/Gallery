@@ -23,7 +23,6 @@
     cursor: pointer;
     color: $primary-light-gray;
     border-radius: 4px;
-    transition: 0.2s;
   }
 
   span:hover {
@@ -37,24 +36,13 @@
   border: none;
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg path {
-    fill: $primary-light-gray;
-    transition: 0.2s;
-  }
+  color: $primary-light-gray;
+  line-height: 1;
+  transition: 0.2s;
 
   &:disabled {
     opacity: 0.3;
     cursor: default;
-  }
-}
-
-.prev {
-  svg {
-    transform: rotate(180deg);
   }
 }
 
@@ -72,9 +60,9 @@
 
   .next,
   .prev {
-    svg path {
-      fill: $primary-dark-gray;
-    }
+
+      color: $primary-dark-gray;
+
   }
 
   .pages span {

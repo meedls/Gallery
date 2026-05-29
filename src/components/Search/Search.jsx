@@ -4,7 +4,7 @@ import SearchIcon from "../../assets/icons/search_icon.svg?react"
 import Filter from "../Filter/Filter"
 import { useState } from "react"
 
-export default function Search({ onChange }) {
+export default function Search({ onChange, onApply, onClear, artists, locations, years }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +25,16 @@ export default function Search({ onChange }) {
         <SettingsIcon />
       </button>
 
-      {open && <Filter onClose={() => setOpen(false)} />}
+      {open && (
+        <Filter
+          onClose={() => setOpen(false)}
+          onApply={onApply}
+          onClear={onClear}
+          artists={artists}
+          locations={locations}
+          years={years}
+        />
+      )}
     </div>
   );
 }
